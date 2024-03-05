@@ -76,3 +76,28 @@ process.exit(1);
 
 DATABASE_URL="postgresql://digitalnavyguy@localhost:5432/entrust?schema=public"
 PORT="5432"
+
+ <!-- 
+ 1. swap to main or master
+    - git checkout main 
+or 
+    - git checkout master
+
+2. pull the new changes to your own main/master branch
+    - git pull
+
+3. swap to your feature branch
+    - git checkout feature/puppy-cards
+
+** 4. update your feature branch with the new code from your main/master **
+    - git pull origin main
+or 
+    - git pull origin master
+
+******************************
+
+** 4. can also use **
+    - git rebase main
+or
+    - git rebase master
+-->
