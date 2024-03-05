@@ -29,15 +29,16 @@ app.get("/teachers", async (req, res) => {
   res.json(allTeachers);
 });
 
-// // Tasks
-// app.post("/tasks", async (req, res) => {
-//   const newTask = await prisma.task.create({ data: req.body });
-//   res.json(newTask);
-// });
+// Tasks
+app.post("/tasks", async (req, res) => {
+  const { text } = req.body;
+  const newTask = await prisma.task.create({ data: { text } });
+  res.json(newTask);
+});
 
-// app.get("/tasks", async (req, res) => {
-//   const allTasks = await prisma.task.findMany();
-//   res.json(allTasks);
-// });
+app.get("/tasks", async (req, res) => {
+  const allTasks = await prisma.task.findMany();
+  res.json(allTasks);
+});
 
 app.listen(`${PORT}`, () => console.log(`Server running on port ${PORT}`));
