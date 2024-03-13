@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, Box, Typography } from '@mui/material';
+import { TextField, Button, Box, Typography, Paper } from '@mui/material';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -10,33 +10,52 @@ const Login = () => {
         e.preventDefault();
         localStorage.setItem('userId', username);
         setUsername('');
-        navigate('/tasks');
+        navigate('/task');
     };
 
     return (
-        <Box
+        <Paper
+            elevation={5}
             sx={{
+                display: 'flex',
                 position: 'absolute',
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
-                background: 'linear-gradient(45deg, #DEE4EA 40%, #F9FCFF 60%)',
-                height: 250, 
-                width: 500,
-                my: 4,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 4,
-                p: 2,
-                border: '2px solid black',
+                width: '80%',
+                maxWidth: '900px',
+                height: '60%',
+                maxHeight: '500px',
+                borderRadius: '16px',
+                overflow: 'hidden',
             }}
         >
-        
-                <Typography variant="h6" component="h2" gutterBottom>
-                    Please provide your assigned username:
+            {/* Image Section */}
+            <Box
+                sx={{
+                    width: '50%',
+                    backgroundImage: 'url("https://www.workbc.ca/sites/default/files/styles/hero_image/public/NTI5NzE_LBEINmT84cG0Guu4-4031-NOC.jpg?itok=i57EEbVr")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+            ></Box>
+
+            {/* Login Form Section */}
+            <Box
+                sx={{
+                    width: '50%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 2,
+                    p: 4,
+                }}
+            >
+                <Typography variant="h5" component="h2" gutterBottom>
+                    Welcome to Entrust.
                 </Typography>
-                <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1, width: '100%' }}>
                     <TextField
                         margin="normal"
                         required
@@ -58,7 +77,8 @@ const Login = () => {
                         Sign In
                     </Button>
                 </Box>
-        </Box>
+            </Box>
+        </Paper>
     );
 };
 
