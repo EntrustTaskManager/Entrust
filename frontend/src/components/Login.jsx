@@ -4,13 +4,34 @@ import { TextField, Button, Box, Typography, Paper } from '@mui/material';
 
 const Login = () => {
     const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        localStorage.setItem('userId', username);
-        setUsername('');
-        navigate('/task');
+        try {
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                navigate('/task');
+            } else {
+                // Handle invalid credentials or other errors
+                console.error('Login failed:', response.statusText);
+                // Display an error message to the user
+            }
+        } catch (error) {
+            // Handle network errors
+            console.error('Login failed:', error.message);
+            // Display an error message to the user
+        }
     };
 
     return (
@@ -67,6 +88,18 @@ const Login = () => {
                         autoFocus
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <Button
                         type="submit"
