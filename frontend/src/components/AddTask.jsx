@@ -1,54 +1,34 @@
 import React, { useState } from "react";
+// import { createTask } from "../services/services.jsx";
 
+const AddTask = () => {
+  const [task, setTask] = useState("");
 
-const AddTask = ({ socket }) => {
+  const handleAddTodo = async (e) => {
+    // Added 'async' here
+    e.preventDefault();
 
-    const [task, setTask] = useState("");
+    await createTask({ task });
+    console.log({ task });
 
+    setTask("");
+  };
 
-    const handleAddTodo = (e) => {
-
-        e.preventDefault();
-
-        //👇🏻 Logs the task to the console
-
-        console.log({ task });
-
-        setTask("");
-
-    };
-
-    return (
-
-        <form className='form__input' onSubmit={handleAddTodo}>
-
-            <label htmlFor='task'>Add Todo</label>
-
-            <input
-
-                type='text'
-
-                name='task'
-
-                id='task'
-
-                value={task}
-
-                className='input'
-
-                required
-
-                onChange={(e) => setTask(e.target.value)}
-
-            />
-
-            <button className='addTodoBtn'>ADD TODO</button>
-
-        </form>
-
-    );
-
+  return (
+    <form className="form__input" onSubmit={handleAddTodo}>
+      <label htmlFor="task">Add Todo</label>
+      <input
+        type="text"
+        name="task"
+        id="task"
+        value={task}
+        className="input"
+        required
+        onChange={(e) => setTask(e.target.value)}
+      />
+      <button className="addTodoBtn">ADD TODO</button>
+    </form>
+  );
 };
-
 
 export default AddTask;
