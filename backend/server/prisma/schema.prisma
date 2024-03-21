@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Teacher {
-    id        String   @id @default(uuid())
+    id        String    @id @default(uuid())
     firstName String
     lastName  String
     username  String
     password  String
     email     String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    messages  Message[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
 }
 
 model Student {
@@ -36,7 +37,9 @@ model Message {
     createdAt DateTime @default(now())
     text      String
     student   Student  @relation(fields: [studentId], references: [id])
+    teacher   Teacher  @relation(fields: [teacherId], references: [id])
     studentId String
+    teacherId String
 }
 
 model Task {
