@@ -1,54 +1,48 @@
 import React, { useState } from 'react';
-import { Box, Input, Button, Flex } from '@chakra-ui/react';
+import { TextField, Button, Box, Typography } from '@mui/material';
 
-const AddCard = ({ addCard }) => {
-    const [title, setTitle] = useState('');
+const AddTask = ({ socket }) => {
+    const [task, setTask] = useState("");
 
-    const handleChange = (event) => {
-        setTitle(event.target.value);
-    };
-
-    const handleSubmit = () => {
-        if (title.trim()) {
-            addCard(title);
-            setTitle('');
-        }
+    const handleAddTodo = (e) => {
+        e.preventDefault();
+        socket.emit("createTask", { task });
+        setTask("");
     };
 
     return (
-        <Flex
-            height="25vh"
-            alignItems="center"
-            justifyContent="center"
+        <Box
+            component="form"
+            onSubmit={handleAddTodo}
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 2,
+                marginTop: 2
+            }}
+            noValidate
+            autoComplete="off"
         >
-            <Box
-                maxW="sm"
-                borderWidth="1px"
-                borderRadius="lg"
-                overflow="hidden"
-                p={4}
-                boxShadow="sm"
-                bg="white"
-                _hover={{ boxShadow: "md" }}
-                transition="box-shadow 0.2s ease-in-out"
-            >
-                <Input
-                    type="text"
-                    value={title}
-                    onChange={handleChange}
-                    placeholder="Enter task here"
-                    mb={3} // margin-bottom
-                />
-                <Button
-                    onClick={handleSubmit}
-                    colorScheme="teal"
-                    width="full"
-                >
-                    Submit
-                </Button>
-            </Box>
-        </Flex>
+            <Typography variant="h6" component="h2">
+                New Task
+            </Typography>
+            <TextField
+                label="Task"
+                variant="outlined"
+                name="task"
+                id="task"
+                value={task}
+                required
+                onChange={(e) => setTask(e.target.value)}
+                sx={{ width: '35%' }} // Adjust the width as needed
+            />
+            <Button type="submit" variant="contained" color="primary">
+                Submit
+            </Button>
+        </Box>
     );
 };
 
-export default AddCard;
+export default AddTask;
