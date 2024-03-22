@@ -1,8 +1,5 @@
-# React + Vite
+WELCOME TO ENTRUST. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+"Entrust" is a meticulously designed KANBAN board tailored to enhance the productivity and efficiency of teams, particularly in the realm of project management and task coordination. This dynamic platform is structured to provide a clear, intuitive visual representation of workflow, enabling teams to navigate through projects with ease and precision.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
