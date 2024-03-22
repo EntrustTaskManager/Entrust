@@ -1,34 +1,144 @@
-import React, { useState } from "react";
-// import { createTask } from "../services/services.jsx";
 
-const AddTask = () => {
-  const [task, setTask] = useState("");
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const http = require("http").Server(app);
+const PORT = 4000;
+// const { Novu } = require("@novu/node");
+// const novu = new Novu(<API_KEY>);
 
-  const handleAddTodo = async (e) => {
-    // Added 'async' here
-    e.preventDefault();
 
-    await createTask({ task });
-    console.log({ task });
 
-    setTask("");
-  };
+const socketIO = require("socket.io")(http, {
+    cors: {
+        origin: "http://localhost:3000",
+    },
+});
 
-  return (
-    <form className="form__input" onSubmit={handleAddTodo}>
-      <label htmlFor="task">Add Todo</label>
-      <input
-        type="text"
-        name="task"
-        id="task"
-        value={task}
-        className="input"
-        required
-        onChange={(e) => setTask(e.target.value)}
-      />
-      <button className="addTodoBtn">ADD TODO</button>
-    </form>
-  );
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const fetchID = () => Math.random().toString(36).substring(2, 10);
+
+let tasks = {
+    New: {
+        title: "New",
+        items: [
+            {
+                id: fetchID(),
+                title: "Newly assigned tasks.",
+                comments: [],
+            },
+        ],
+    },
+    ongoing: {
+        title: "ongoing",
+        items: [
+            {
+                id: fetchID(),
+                title: "Pending Completion",
+                comments: [
+                    {
+                        name: "David",
+                        text: "Ensure you review before merging",
+                        id: fetchID(),
+                    },
+                ],
+            },
+        ],
+    },
+    completed: {
+        title: "completed",
+        items: [
+            {
+                id: fetchID(),
+                title: "Completed Tasks",
+                comments: [
+                    {
+                        name: "Dima",
+                        text: "Make sure you check the requirements",
+                        id: fetchID(),
+                    },
+                ],
+            },
+        ],
+    },
 };
 
-export default AddTask;
+// const sendNotification = async (user) => {
+// 	try {
+// 		const result = await novu.trigger("<TEMPLATE_ID>", {
+// 			to: {
+// 				subscriberId: "<SUBSCRIBER_ID>",
+// 			},
+// 			payload: {
+// 				userId: user,
+// 			},
+// 		});
+// 		console.log(result);
+// 	} catch (err) {
+// 		console.error("Error >>>>", { err });
+// 	}
+// };
+socketIO.on("connection", (socket) => {
+    console.log(`⚡: ${socket.id} user just connected!`);
+
+    socket.on("createTask", (data) => {
+        const newTask = { id: fetchID(), title: data.task, comments: [] };
+        tasks["pending"].items.push(newTask);
+        socket.emit("tasks", tasks);
+
+    });
+
+    socket.on("taskDragged", (data) => {
+        const { source, destination } = data;
+        const itemMoved = {
+            ...tasks[source.droppableId].items[source.index],
+        };
+        console.log("ItemMoved>>> ", itemMoved);
+        tasks[source.droppableId].items.splice(source.index, 1);
+        tasks[destination.droppableId].items.splice(
+            destination.index,
+            0,
+            itemMoved
+        );
+        console.log("Source >>>", tasks[source.droppableId].items);
+        console.log("Destination >>>", tasks[destination.droppableId].items);
+        socket.emit("tasks", tasks);
+    });
+
+    socket.on("fetchComments", (data) => {
+        const taskItems = tasks[data.category].items;
+        for (let i = 0; i < taskItems.length; i++) {
+            if (taskItems[i].id === data.id) {
+                socket.emit("comments", taskItems[i].comments);
+            }
+        }
+    });
+    socket.on("addComment", (data) => {
+        const taskItems = tasks[data.category].items;
+        for (let i = 0; i < taskItems.length; i++) {
+            if (taskItems[i].id === data.id) {
+                taskItems[i].comments.push({
+                    name: data.userId,
+                    text: data.comment,
+                    id: fetchID(),
+                });
+                socket.emit("comments", taskItems[i].comments);
+            }
+        }
+    });
+    socket.on("disconnect", () => {
+        socket.disconnect();
+        console.log("🔥: A user disconnected");
+    });
+});
+
+app.get("/api", (req, res) => {
+    res.json(tasks);
+});
+
+http.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+});
