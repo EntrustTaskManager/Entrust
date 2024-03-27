@@ -1,9 +1,24 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
 
 async function createStudent(req, res) {
   try {
-    const newStudent = await prisma.student.create({ data: req.body });
+    // Extract username and password from body
+    const { firstName, lastName, username, password, email } = req.body;
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newStudent = await prisma.student.create({
+      data: {
+        firstName,
+        lastName,
+        username,
+        password: hashedPassword,
+        email,
+      },
+    });
     res.json(newStudent);
   } catch (error) {
     // Handle the error
