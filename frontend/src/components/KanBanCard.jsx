@@ -4,7 +4,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 const KanbanCard = ({ title, index, parent }) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
-        id: `${parent}-${index}-${title}`, // Ensuring a unique ID
+        id: `${parent}-${index}-${title}`, 
         data: {
             title,
             index,
