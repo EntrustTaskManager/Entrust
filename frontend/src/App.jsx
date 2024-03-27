@@ -1,33 +1,30 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-import Comments from "./components/Commnets.jsx";
-
-import Task from "./components/Task";
-
+import { useState } from 'react'
+import { ChakraProvider, theme, Text } from "@chakra-ui/react";
+import KanbanBoard  from "./components/KanbanBoard.jsx";
 import Login from "./components/Login";
-
+import './App.css'
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 function App() {
+  const [count, setCount] = useState(0)
 
-    return (
+  return (
+      <ChakraProvider theme={theme}>
+          <BrowserRouter>
 
-        <BrowserRouter>
+              <Routes>
 
-            <Routes>
+                  <Route path='/' element={<Login />} />
 
-                <Route path='/' element={<Login />} />
+                  <Route path='/KanbanBoard' element={<KanbanBoard />} />
 
-                <Route path='/task' element={<Task />} />
+                  {/*<Route path='/comments/:category/:id' element={<Comments />} />*/}
 
-                <Route path='/comments/:category/:id' element={<Comments />} />
+              </Routes>
 
-            </Routes>
-
-        </BrowserRouter>
-
-    );
-
+          </BrowserRouter>
+      </ChakraProvider>
+  )
 }
 
-
-export default App;
+export default App
