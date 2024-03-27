@@ -1,6 +1,7 @@
 import { Flex, Text, Box } from '@chakra-ui/react';
 import { useDroppable } from '@dnd-kit/core';
-import KanbanCard from './KanBanCard'; // Assuming KanbanCard is in the same directory
+import KanbanCard from './KanBanCard';
+
 
 export default function KanbanLane({ title, items }) {
     const { setNodeRef } = useDroppable({
