@@ -5,17 +5,18 @@ const bcrypt = require("bcrypt");
 async function createStudent(req, res) {
   try {
     // Extract username and password from body
-    const { firstName, lastName, username, password } = req.body;
+    const { firstName, lastName, username, password, email } = req.body;
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newStudent = await prisma.student.create({
       data: {
-        username,
         firstName,
         lastName,
+        username,
         password: hashedPassword,
+        email,
       },
     });
     res.json(newStudent);
