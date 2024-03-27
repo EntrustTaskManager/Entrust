@@ -1,111 +1,97 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Paper } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-
-const { student, teacher } = require("../../../backend/server/dummyData/seed");
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    Box,
+    Button,
+    Input,
+    VStack,
+    Text,
+    Flex,
+    useColorModeValue,
+    Image
+} from '@chakra-ui/react';
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // Authentication logic here
+        localStorage.setItem("userId", username);
+        setUsername("");
+        setPassword("");
+        navigate("/KanbanBoard");
+    };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+    const formBackground = useColorModeValue("gray.100", "gray.700");
 
-    //👇🏻 saves the username to localstorage
-
-    localStorage.setItem("userId", username);
-
-    setUsername("");
-
-    //👇🏻 redirects to the Tasks page.
-
-    navigate("/task");
-  };
-
-  return (
-    <Paper
-      elevation={5}
-      sx={{
-        display: "flex",
-        position: "absolute",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "80%",
-        maxWidth: "900px",
-        height: "60%",
-        maxHeight: "500px",
-        borderRadius: "16px",
-        overflow: "hidden",
-      }}
-    >
-      {/* Image Section */}
-      <Box
-        sx={{
-          width: "50%",
-          backgroundImage:
-            'url("https://www.workbc.ca/sites/default/files/styles/hero_image/public/NTI5NzE_LBEINmT84cG0Guu4-4031-NOC.jpg?itok=i57EEbVr")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></Box>
-
-      {/* Login Form Section */}
-      <Box
-        sx={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2,
-          p: 4,
-        }}
-      >
-        <Typography variant="h5" component="h2" gutterBottom>
-          Welcome to Entrust.
-        </Typography>
-        <Box
-          component="form"
-          onSubmit={handleLogin}
-          noValidate
-          sx={{ mt: 1, width: "100%" }}
+    return (
+        <Flex
+            align="center"
+            justify="center"
+            height="100vh"
+            bg={useColorModeValue("gray.50", "gray.800")}
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-        </Box>
-      </Box>
-    </Paper>
-  );
+            <Box
+                d="flex"
+                boxShadow="2xl"
+                borderRadius="2xl"
+                overflow="hidden"
+                maxWidth="900px"
+                width="full"
+                bg={formBackground}
+            >
+                <Flex direction="row" width="full" align="center">
+                    <Image
+                        src="https://www.thoughtco.com/thmb/mi5BR5mruiShD9HnmFwoIu241E4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/high-school-teacher-calling-on-student-in-classroom-595349163-5adf35e6fa6bcc0036b16732.jpg"
+                        alt="Login Image"
+                        objectFit="cover"
+                        width="50%"
+                        borderRadius="2xl"
+                    />
+
+                    <VStack
+                        align="center"
+                        justify="center"
+                        p={8}
+                        spacing={6}
+                        width="50%"
+                    >
+                        <Text fontSize="3xl" fontWeight="bold">Entrust</Text>
+                        <Box as="form" onSubmit={handleLogin} width="full">
+                            <VStack spacing={5}>
+                                <Input
+                                    placeholder="Username"
+                                    size="lg"
+                                    bg="white"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <Input
+                                    placeholder="Password"
+                                    size="lg"
+                                    bg="white"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <Button
+                                    width="full"
+                                    size="lg"
+                                    colorScheme="blue"
+                                    type="submit"
+                                >
+                                    Log In
+                                </Button>
+                            </VStack>
+                        </Box>
+                    </VStack>
+                </Flex>
+            </Box>
+        </Flex>
+    );
 };
 
 export default Login;
