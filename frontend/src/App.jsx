@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChakraProvider, theme, Text } from "@chakra-ui/react";
-import KanbanBoard from "./components/KanbanBoard.jsx";
+import KanbanBoard from "./components/KanbanBoard";
 import Login from "./components/Login";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
