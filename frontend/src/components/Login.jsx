@@ -16,14 +16,27 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // Authentication logic here
+    const handleLogin = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+    });
+
+    if (response.ok) {
+        const data = await response.json();
         localStorage.setItem("userId", username);
         setUsername("");
         setPassword("");
         navigate("/KanbanBoard");
-    };
+    } else {
+        
+        console.error('Login failed');
+    }
+};
 
     const formBackground = useColorModeValue("gray.100", "gray.700");
 
