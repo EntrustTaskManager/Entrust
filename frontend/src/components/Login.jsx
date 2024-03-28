@@ -10,38 +10,19 @@ import {
   useColorModeValue,
   Image,
 } from "@chakra-ui/react";
-import axios from "axios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  //   const handleLogin = (e) => {
-  //     e.preventDefault();
-  //     // Authentication logic here
-  //     localStorage.setItem("userId", username);
-  //     setUsername("");
-  //     setPassword("");
-  //     navigate("/KanbanBoard");
-  //   };
-
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/login", {
-        username,
-        password,
-      });
-
-      const token = response.data.token;
-
-      localStorage.setItem("token", token);
-
-      Navigate("/KanbanBoard");
-    } catch (error) {
-      console.error("Authentication failed:", error);
-    }
+    // Authentication logic here
+    localStorage.setItem("userId", username);
+    setUsername("");
+    setPassword("");
+    navigate("/KanbanBoard");
   };
 
   const formBackground = useColorModeValue("gray.100", "gray.700");
