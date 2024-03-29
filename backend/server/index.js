@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const cors = require("cors");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -13,6 +14,13 @@ const loginRoutes = require("./routes/login/loginRoutes");
 
 app.use(express.json());
 app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 // Use route files
 app.use("/students", studentRoutes);

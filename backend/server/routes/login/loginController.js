@@ -5,11 +5,13 @@ const prisma = new PrismaClient();
 
 async function login(req, res) {
   const { username, password } = req.body;
-
+  console.log(username);
   try {
     // Find the user in the database
-    const user = await prisma.user.findUnique({
-      where: { username },
+    const user = await prisma.teacher.findUnique({
+      where: {
+        username,
+      },
     });
 
     // If user not found, send error response

@@ -19,6 +19,7 @@ async function createTeacher(req, res) {
         email,
       },
     });
+    console.log(newTeacher);
     res.json(newTeacher);
   } catch (error) {
     // Handle the error
