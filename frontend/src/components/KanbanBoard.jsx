@@ -4,6 +4,7 @@ import KanbanLane from "./KanBanLane";
 import AddCard from "./AddCard";
 import { Flex,  } from '@chakra-ui/react';
 import { useState } from "react";
+import LiveChatWidget from "./LiveChatWidget";
 
 export default function KanbanBoard() {
     const [todoItems, setTodoItems] = useState([]);
@@ -53,6 +54,7 @@ export default function KanbanBoard() {
                     <KanbanLane title="Done" items={doneItems} />
                     <KanbanLane title="Unassigned" items={uItems} />
                 </Flex>
+                <LiveChatWidget />
             </Flex>
         </DndContext>
     );
