@@ -10,7 +10,7 @@ const teacher = {
   firstName: "Bart",
   lastName: "Simpson",
   username: "ElBarto",
-  password: "EatMyShorts!",
+  password: "Eatmyshorts!",
   email: "bartdude@simpsons.com",
 };
 

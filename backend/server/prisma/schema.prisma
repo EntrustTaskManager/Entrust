@@ -36,10 +36,10 @@ model Message {
     id        Int      @id @default(autoincrement())
     createdAt DateTime @default(now())
     text      String
-    student   Student  @relation(fields: [studentId], references: [id])
-    teacher   Teacher  @relation(fields: [teacherId], references: [id])
-    studentId Int
-    teacherId Int
+    student   Student  @relation(fields: [studentId], references: [username])
+    teacher   Teacher  @relation(fields: [teacherId], references: [username])
+    studentId String
+    teacherId String
 }
 
 model Task {
