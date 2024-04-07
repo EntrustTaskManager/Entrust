@@ -39,17 +39,18 @@ async function getAllStudents(req, res) {
 }
 
 async function getStudentById(req, res) {
-  const { uuid } = req.params;
+  const { id } = req.params;
 
   try {
     const student = await prisma.student.findUnique({
       where: {
-        id: uuid,
+        id: +id,
       },
     });
+    console.log(student);
 
     if (!student) {
-      return res.status(404).json({ error: "Student not found" });
+      return res.status(404).json({ error: "student not found" });
     }
 
     res.json(student);
@@ -60,13 +61,13 @@ async function getStudentById(req, res) {
 }
 
 async function updateStudent(req, res) {
-  const { uuid } = req.params;
-  const { firstName, lastName, username, password, gpa, email } = req.body;
+  const { id } = req.params;
+  const { firstName, lastName, username, password, email } = req.body;
 
   try {
     const updatedStudent = await prisma.student.update({
-      where: { id: uuid },
-      data: { firstName, lastName, username, password, gpa, email },
+      where: { id: +id },
+      data: { firstName, lastName, username, password, email },
     });
     res.json(updatedStudent);
   } catch (error) {
@@ -76,11 +77,11 @@ async function updateStudent(req, res) {
 }
 
 async function deleteStudent(req, res) {
-  const { uuid } = req.params;
+  const { id } = req.params;
 
   try {
     const deletedStudent = await prisma.student.delete({
-      where: { id: uuid },
+      where: { id: +id },
     });
 
     res.json(deletedStudent);

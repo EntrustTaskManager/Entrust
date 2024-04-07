@@ -40,14 +40,15 @@ async function getAllTeachers(req, res) {
 }
 
 async function getTeacherById(req, res) {
-  const { uuid } = req.params;
+  const { id } = req.params;
 
   try {
     const teacher = await prisma.teacher.findUnique({
       where: {
-        id: uuid,
+        id: +id,
       },
     });
+    console.log(teacher);
 
     if (!teacher) {
       return res.status(404).json({ error: "Teacher not found" });
@@ -61,12 +62,12 @@ async function getTeacherById(req, res) {
 }
 
 async function updateTeacher(req, res) {
-  const { uuid } = req.params;
+  const { id } = req.params;
   const { firstName, lastName, username, password, email } = req.body;
 
   try {
     const updatedTeacher = await prisma.teacher.update({
-      where: { id: uuid },
+      where: { id: +id },
       data: { firstName, lastName, username, password, email },
     });
     res.json(updatedTeacher);
@@ -77,11 +78,11 @@ async function updateTeacher(req, res) {
 }
 
 async function deleteTeacher(req, res) {
-  const { uuid } = req.params;
+  const { id } = req.params;
 
   try {
     const deletedTeacher = await prisma.teacher.delete({
-      where: { id: uuid },
+      where: { id: +id },
     });
 
     res.json(deletedTeacher);
