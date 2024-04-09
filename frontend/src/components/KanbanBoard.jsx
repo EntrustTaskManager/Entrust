@@ -2,19 +2,25 @@ import { DndContext, rectIntersection } from "@dnd-kit/core";
 import '../App.css'
 import KanbanLane from "./KanBanLane";
 import AddCard from "./AddCard";
-import { Flex,  } from '@chakra-ui/react';
+import { Flex, Box  } from '@chakra-ui/react';
 import { useState } from "react";
 import LiveChatWidget from "./LiveChatWidget";
+import TeacherPanel from './TeacherPanel';
+import SidePanel from './SidePanel';
+
 
 export default function KanbanBoard() {
-    const [todoItems, setTodoItems] = useState([]);
+    const [uItems, setuItems] = useState([]);
     const [doneItems, setDoneItems] = useState([]);
     const [inProgressItems, setInProgressItems] = useState([]);
-    const [uItems, setuItems] = useState([]);
+    const [todoItems, setTodoItems] = useState([]);
+
 
     const addNewCard = (title) => {
         setuItems([...uItems, { title }]);
     };
+
+
 
     return (
         <DndContext
@@ -49,12 +55,20 @@ export default function KanbanBoard() {
             <Flex flexDirection="column">
                 <AddCard addCard={addNewCard} />
                 <Flex flex="3">
+                    <KanbanLane title="Unassigned" items={uItems} />
                     <KanbanLane title="ToDo" items={todoItems} />
                     <KanbanLane title="In Progress" items={inProgressItems} />
                     <KanbanLane title="Done" items={doneItems} />
-                    <KanbanLane title="Unassigned" items={uItems} />
+
                 </Flex>
                 <LiveChatWidget />
+                <TeacherPanel
+                    uItems={uItems}
+                    todoItems={todoItems}
+                    inProgressItems={inProgressItems}
+                    doneItems={doneItems}
+                />
+                <SidePanel />
             </Flex>
         </DndContext>
     );
