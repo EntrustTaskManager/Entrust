@@ -1,7 +1,7 @@
 import { Flex, Text, Box } from '@chakra-ui/react';
 import { useDroppable } from '@dnd-kit/core';
 import KanbanCard from './KanBanCard';
-
+import { Avatar } from '@chakra-ui/react'; 
 
 export default function KanbanLane({ title, items }) {
     const { setNodeRef } = useDroppable({
@@ -14,12 +14,14 @@ export default function KanbanLane({ title, items }) {
             padding="5"
             flexDirection="column"
             minH="20rem"
-            bgColor="white"
+            bgColor="rgba(255, 255, 255, 0.2)" 
             borderRadius="lg"
-            boxShadow="0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)"
+            backdropFilter="blur(10px)" 
+            boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)" 
+            border="1px solid rgba(25, 31, 52, 0.8)" 
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
             _hover={{
-                boxShadow: "0 7px 14px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)",
+                boxShadow: "0 7px 14px rgba(0, 0, 0, 0.1)",
                 transform: "translateY(-2px)",
             }}
             m="4"
@@ -36,7 +38,6 @@ export default function KanbanLane({ title, items }) {
             </Text>
             <Box
                 ref={setNodeRef}
-                bgGradient="linear(to-b, gray.100, gray.200)"
                 borderRadius="8"
                 flex="1"
                 p="2"
@@ -55,11 +56,20 @@ export default function KanbanLane({ title, items }) {
                     },
                 }}
             >
-                {items.map((item, key) => (
-                    <KanbanCard title={item.title} key={key} index={key} parent={title} />
+                {items.map((item, index) => (
+                    <Flex key={index} alignItems="center">
+                        <Avatar name={item.user} src={item.avatarUrl} size="sm" mr="2" />
+                        <KanbanCard
+                            title={item.title}
+                            description={item.description}
+                            user={item.user}
+                            avatarUrl={item.avatarUrl}
+                            index={index}
+                            parent={title}
+                        />
+                    </Flex>
                 ))}
             </Box>
         </Flex>
     );
 }
-
