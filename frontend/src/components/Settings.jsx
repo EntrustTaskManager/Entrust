@@ -1,41 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-    Box,
-    VStack,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    useColorMode,
-    Heading,
-    Switch,
-    useColorModeValue,
-    Icon,
-    InputGroup,
-    InputRightElement,
-    IconButton
+    Box, VStack, Button, FormControl, FormLabel, Input, useColorMode,
+    Heading, Switch, useColorModeValue, Icon, InputGroup, InputRightElement, IconButton, HStack
 } from '@chakra-ui/react';
-import {FaMoon, FaSun, FaEnvelope, FaLock, FaArrowLeft} from 'react-icons/fa';
+import { FaMoon, FaSun, FaEnvelope, FaLock, FaArrowLeft, FaUserPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const navigate = useNavigate();
 
+    const [studentName, setStudentName] = useState('');
+    const [studentEmail, setStudentEmail] = useState('');
 
     const glassBackground = useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(26, 32, 44, 0.8)');
     const boxShadowColor = useColorModeValue('rgba(0, 0, 0, 0.1)', 'rgba(0, 0, 0, 0.2)');
 
     const handleChangeEmail = (e) => {
         e.preventDefault();
-
         console.log("Change email logic here");
     };
 
     const handleChangePassword = (e) => {
         e.preventDefault();
-
         console.log("Change password logic here");
+    };
+
+    const handleAddStudent = (e) => {
+        e.preventDefault();
+        console.log(`Adding student: ${studentName} with email: ${studentEmail}`);
+        // Here you would typically make an API call to add the student to the class
+        // Reset form fields after submission for better user experience
+        setStudentName('');
+        setStudentEmail('');
     };
 
     return (
@@ -52,12 +49,11 @@ const Settings = () => {
                 icon={<FaArrowLeft />}
                 aria-label="Back to Kanban Board"
                 variant="ghost"
-                onClick={() => navigate('/KanbanBoard')} 
+                onClick={() => navigate('/KanbanBoard')} // Adjust the path as needed
                 mb={4}
             />
             <Heading mb={6} textAlign="center">Settings</Heading>
             <VStack spacing={4} align="stretch">
-
 
                 <FormControl display="flex" alignItems="center" justifyContent="space-between">
                     <FormLabel htmlFor="theme-toggle" mb="0">
@@ -87,6 +83,24 @@ const Settings = () => {
                     <Button mt={2} colorScheme="blue" onClick={handleChangePassword}>Update Password</Button>
                 </FormControl>
 
+                {/* Add Student Section */}
+                <FormControl as="fieldset">
+                    <FormLabel as="legend"><Icon as={FaUserPlus} mr={2} />Add Student</FormLabel>
+                    <HStack spacing={2}>
+                        <Input
+                            placeholder="Student's Name"
+                            value={studentName}
+                            onChange={(e) => setStudentName(e.target.value)}
+                        />
+                        <Input
+                            placeholder="Student's Email"
+                            type="email"
+                            value={studentEmail}
+                            onChange={(e) => setStudentEmail(e.target.value)}
+                        />
+                    </HStack>
+                    <Button mt={2} colorScheme="teal" onClick={handleAddStudent}>Add Student</Button>
+                </FormControl>
 
             </VStack>
         </Box>
