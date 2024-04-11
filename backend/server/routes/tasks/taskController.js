@@ -3,8 +3,8 @@ const prisma = new PrismaClient();
 
 async function createTask(req, res) {
   try {
-    const { text } = req.body;
-    const newTask = await prisma.task.create({ data: { text } });
+    const { title, status } = req.body;
+    const newTask = await prisma.task.create({ data: { title, status } });
     res.json(newTask);
   } catch (error) {
     // Handle the error
