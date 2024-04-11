@@ -44,7 +44,8 @@ model Message {
 
 model Task {
     id        Int      @id @default(autoincrement())
-    text      String
+    title     String
+    status    String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
