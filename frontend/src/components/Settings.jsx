@@ -29,8 +29,7 @@ const Settings = () => {
     const handleAddStudent = (e) => {
         e.preventDefault();
         console.log(`Adding student: ${studentName} with email: ${studentEmail}`);
-        // Here you would typically make an API call to add the student to the class
-        // Reset form fields after submission for better user experience
+        
         setStudentName('');
         setStudentEmail('');
     };
