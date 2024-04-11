@@ -20,34 +20,6 @@ export default function KanbanBoard() {
         setuItems([...uItems, { title }]);
     };
 
-    // const addNewCard = async (title) => {
-    //     try {
-    //
-    //         const response = await fetch('http://localhost:4000/tasks', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Accept': 'application/json',
-    //             },
-    //             body: JSON.stringify({ title, status: 'Unassigned' }),
-    //         });
-    //
-    //         if (!response.ok) {
-    //
-    //             throw new Error(`Error: ${response.statusText}`);
-    //         }
-    //
-    //         const newTask = await response.json();
-    //         setuItems([...uItems, newTask]);
-    //     } catch (err) {
-    //         console.error('Error adding new card:', err);
-    //
-    //     }
-    // };
-
-
-
-
 
     return (
         <DndContext
