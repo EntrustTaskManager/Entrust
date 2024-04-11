@@ -3,7 +3,7 @@ import { Box, Button, Input, VStack, Text, HStack, IconButton, Avatar, List, Lis
 import { ChevronDownIcon, ChevronUpIcon, EditIcon, DeleteIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:4000');
+const socket = io('http://localhost:3000');
 
 const users = [
     { id: 'user1', name: 'User 1', avatarUrl: 'https://bit.ly/dan-abramov' },
