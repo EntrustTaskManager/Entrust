@@ -2,6 +2,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const socketIo = require("socket.io");
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 const cors = require("cors");
@@ -39,7 +40,7 @@ const teacherRoutes = require("./routes/teacher/teacherRoutes");
 const taskRoutes = require("./routes/tasks/taskRoutes");
 const loginRoutes = require("./routes/login/loginRoutes");
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.json());
 app.use(bodyParser.json());
