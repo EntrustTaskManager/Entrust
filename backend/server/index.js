@@ -42,6 +42,9 @@ const loginRoutes = require("./routes/login/loginRoutes");
 app.use(express.json());
 app.use(bodyParser.json());
 
+const path = require("path");
+app.use("/static", express.static(path.join(__dirname, "dist")));
+
 app.use(
   cors({
     origin: "http://localhost:5173",
