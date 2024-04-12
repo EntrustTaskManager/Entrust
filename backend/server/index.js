@@ -45,16 +45,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(bodyParser.json());
 
-// const path = require("path");
-// app.use(
-//   "/static",
-//   express.static(path.join(__dirname, "backend/server/index.html"))
-// );
-
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/public/index.html");
-// });
-
 app.use(
   cors({
     origin: "http://localhost:5173",
