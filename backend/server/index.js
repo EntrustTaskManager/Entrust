@@ -42,11 +42,15 @@ const loginRoutes = require("./routes/login/loginRoutes");
 app.use(express.json());
 app.use(bodyParser.json());
 
-const path = require("path");
-app.use(
-  "/static",
-  express.static(path.join(__dirname, "backend/server/index.html"))
-);
+// const path = require("path");
+// app.use(
+//   "/static",
+//   express.static(path.join(__dirname, "backend/server/index.html"))
+// );
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/server/index.html");
+});
 
 app.use(
   cors({
