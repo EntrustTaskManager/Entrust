@@ -43,7 +43,10 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 const path = require("path");
-app.use("/static", express.static(path.join(__dirname, "dist")));
+app.use(
+  "/static",
+  express.static(path.join(__dirname, "backend/server/index.html"))
+);
 
 app.use(
   cors({
