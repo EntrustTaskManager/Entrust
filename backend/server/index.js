@@ -39,6 +39,8 @@ const teacherRoutes = require("./routes/teacher/teacherRoutes");
 const taskRoutes = require("./routes/tasks/taskRoutes");
 const loginRoutes = require("./routes/login/loginRoutes");
 
+app.use(express.static("server"));
+
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -48,9 +50,9 @@ app.use(bodyParser.json());
 //   express.static(path.join(__dirname, "backend/server/index.html"))
 // );
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/server/index.html");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 
 app.use(
   cors({
