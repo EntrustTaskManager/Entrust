@@ -7,7 +7,7 @@
     "start": "node backend/server/index.js",
     "client:dev": "vite frontend",
     "server:dev": "nodemon backend/server/index.js",
-    "build": "vite build",
+    "build": "vite build frontend",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
