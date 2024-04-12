@@ -39,7 +39,7 @@ const teacherRoutes = require("./routes/teacher/teacherRoutes");
 const taskRoutes = require("./routes/tasks/taskRoutes");
 const loginRoutes = require("./routes/login/loginRoutes");
 
-app.use(express.static("server"));
+app.use(express.static("public"));
 
 app.use(express.json());
 app.use(bodyParser.json());
