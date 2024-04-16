@@ -9,7 +9,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
-// const PORT = process.env.PORT || 4000;
+// const PORT = process.env.PORT || 4000;/api
 
 const server = http.createServer(app);
 
@@ -57,10 +57,10 @@ app.use(
 // }));
 
 // Use route files
-app.use("/students", studentRoutes);
-app.use("/teachers", teacherRoutes);
-app.use("/tasks", taskRoutes);
-app.use("/login", loginRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/teachers", teacherRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/login", loginRoutes);
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
